@@ -19,7 +19,9 @@ Using
 cd ......../ubuntu12.04
 
 ./a_kernelUpgrade.sh
+
 (reboot)
+
 ./b_libInstall.sh
 ...
 ...
