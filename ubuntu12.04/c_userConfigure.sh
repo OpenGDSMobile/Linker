@@ -29,10 +29,10 @@ done < $settingFilename
 tomcat7_userControlFile="/var/lib/tomcat7/conf/tomcat-users.xml"
 userInfo="<user username=\"$username\" password=\"$password\" roles=\"admin,manager,manager-gui\"/>"
 
-#sed -i '19i\  <role rolename="manager"/>' $tomcat7_userControlFile
-#sed -i '20i\  <role rolename="admin"/>' $tomcat7_userControlFile
-#sed -i '21i\  <role rolename="manager-gui"/>' $tomcat7_userControlFile
-#sed -i "22i\  $userInfo" $tomcat7_userControlFile
+sed -i '19i\  <role rolename="manager"/>' $tomcat7_userControlFile
+sed -i '20i\  <role rolename="admin"/>' $tomcat7_userControlFile
+sed -i '21i\  <role rolename="manager-gui"/>' $tomcat7_userControlFile
+sed -i "22i\  $userInfo" $tomcat7_userControlFile
 #------------------------------------------------------------------------------------------------------
 
 # JK module -------------------------------------------------------------------------------------------
@@ -60,5 +60,18 @@ serverXml="/var/lib/tomcat7/conf/server.xml"
 sed -i '97i\    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />' $serverXml
 #------------------------------------------------------------------------------------------------------
 #======================================================================================================
+
+
+
+#    GeoServer setup    ===============================================================================
+#mkdir -p ./downloads/geoserver
+#wget http://sourceforge.net/projects/geoserver/files/GeoServer/2.6.0/geoserver-2.6.0-war.zip/download -O ./downloads/geoserver.zip
+#unzip ./downloads/geoserver.zip -d ./downloads/geoserver
+#unzip ./downloads/geoserver/geoserver.war -d /var/lib/tomcat7/webapps/geoserver
+
+#service tomcat7 restart
+#======================================================================================================
+
+
 
 
