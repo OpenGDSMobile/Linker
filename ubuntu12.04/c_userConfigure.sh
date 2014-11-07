@@ -3,6 +3,7 @@
 settingFilename="../setting"
 username=""
 password=""
+databasename=""
 
 while read line
 do
@@ -14,12 +15,16 @@ do
   elif [ "${array[0]}" == "passwd" ] 
   then
     password="${array[1]}"
+  elif [ "${array[0]}" == "database" ] 
+  then
+    databasename="${array[1]}"
   fi 
 done < $settingFilename
 
 
 
 #    PostgreSQL setup    ==============================================================================
+
 
 #======================================================================================================
 
@@ -62,7 +67,6 @@ sed -i '97i\    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
 #======================================================================================================
 
 
-
 #    GeoServer setup    ===============================================================================
 mkdir -p ./downloads/geoserver
 wget http://sourceforge.net/projects/geoserver/files/GeoServer/2.6.0/geoserver-2.6.0-war.zip/download -O ./downloads/geoserver.zip
@@ -73,10 +77,18 @@ service tomcat7 restart
 #======================================================================================================
 
 
-#    Apache + Tomcat7 Connection 
+#    Apache + GeoServer =============================================================================== 
 apacheSettingFile="/etc/apache2/sites-available/default"
 sed -i '23i\        JKMount /geoserver/* ajp13_worker' $apacheSettingFile
 service apache2 restart
+#======================================================================================================
 
+
+#    GeoServer User Configure ========================================================================= 
+
+
+
+
+#======================================================================================================
 
 
