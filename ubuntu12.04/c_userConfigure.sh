@@ -9,15 +9,15 @@ while read line
 do
   IFS=': ' read -a array <<< $line
 
-  if [ "${array[0]}" == "user" ] 
+  if [ ${array[0]} == "user" ] 
   then
-    username="${array[1]}"
-  elif [ "${array[0]}" == "passwd" ] 
+    username=${array[1]}
+  elif [ ${array[0]} == "passwd" ] 
   then
-    password="${array[1]}"
-  elif [ "${array[0]}" == "database" ] 
+    password=${array[1]}
+  elif [ ${array[0]} == "database" ] 
   then
-    databasename="${array[1]}"
+    databasename=${array[1]}
   fi 
 done < $settingFilename
 
