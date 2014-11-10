@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#### init setup    ====================================================================================
 settingFilename="../setting"
 username=""
 password=""
@@ -9,27 +10,24 @@ while read line
 do
   IFS=': ' read -a array <<< $line
 
-  if [ ${array[0]} == "user" ] 
-  then
+  if [ ${array[0]} == "user" ]; then
     username=${array[1]}
-  elif [ ${array[0]} == "passwd" ] 
-  then
+  elif [ ${array[0]} == "passwd" ]; then
     password=${array[1]}
-  elif [ ${array[0]} == "database" ] 
-  then
+  elif [ ${array[0]} == "database" ]; then
     databasename=${array[1]}
   fi 
 done < $settingFilename
+#======================================================================================================
 
 
-
-#    PostgreSQL setup    ==============================================================================
+#### PostgreSQL setup    ==============================================================================
 
 
 #======================================================================================================
 
 
-#    tomcat7 setup    =================================================================================
+#### tomcat7 setup    =================================================================================
 # user ------------------------------------------------------------------------------------------------
 tomcat7_userControlFile="/var/lib/tomcat7/conf/tomcat-users.xml"
 userInfo="<user username=\"$username\" password=\"$password\" roles=\"admin,manager,manager-gui\"/>"
@@ -67,26 +65,26 @@ sed -i '97i\    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
 #======================================================================================================
 
 
-#    GeoServer setup    ===============================================================================
+#### GeoServer setup    ===============================================================================
 mkdir -p ./downloads/geoserver
-wget http://sourceforge.net/projects/geoserver/files/GeoServer/2.6.0/geoserver-2.6.0-war.zip/download -O ./downloads/geoserver.zip
+wget http://sourceforge.net/projects/geoserver/files/GeoServer/2.6.0/geoserver-2.6.0-war.zip/download \
+     -O ./downloads/geoserver.zip
 unzip ./downloads/geoserver.zip -d ./downloads/geoserver
 cp ./downloads/geoserver/geoserver.war /var/lib/tomcat7/webapps/geoserver.war
 
-service tomcat7 restart
+service tomcat7 restart  # deply geoserver
 #======================================================================================================
 
 
-#    Apache + GeoServer =============================================================================== 
+#### Apache + GeoServer =============================================================================== 
 apacheSettingFile="/etc/apache2/sites-available/default"
 sed -i '23i\        JKMount /geoserver/* ajp13_worker' $apacheSettingFile
-service apache2 restart
+
+service apache2 restart # test : http://server_ip_address/geoserver
 #======================================================================================================
 
 
-#    GeoServer User Configure ========================================================================= 
-
-
+#### GeoServer User Configure ========================================================================= 
 
 
 #======================================================================================================
