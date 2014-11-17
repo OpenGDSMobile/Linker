@@ -62,6 +62,18 @@ sed -i -e 's#/usr/lib/jvm/default-java#'$newJavaHome'#g' $modJK_workerPropertyFi
 serverXml="/var/lib/tomcat7/conf/server.xml"
 sed -i '97i\    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />' $serverXml
 #------------------------------------------------------------------------------------------------------
+
+# symbolic link ---------------------------------------------------------------------------------------
+ln -s /var/lib/tomcat7/conf /usr/share/tomcat7/conf
+ln -s /etc/tomcat7/policy.d/03catalina.policy /usr/share/tomcat7/conf/catalina.policy
+ln -s /var/log/tomcat7 /usr/share/tomcat7/log
+ln -s /var/lib/tomcat7/common /usr/share/tomcat7/common
+ln -s /var/lib/tomcat7/server /usr/share/tomcat7/server
+ln -s /var/lib/tomcat7/shared /usr/share/tomcat7/shared
+
+chmod -R 777 /usr/share/tomcat7/conf
+#------------------------------------------------------------------------------------------------------
+
 #======================================================================================================
 
 
