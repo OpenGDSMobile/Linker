@@ -11,6 +11,7 @@ settingFilename="../setting"
 username=""
 password=""
 databasename=""
+tomcatDebugListeningPort=""
 
 while read line
 do
@@ -22,6 +23,8 @@ do
     password=${array[1]}
   elif [ ${array[0]} == "database" ]; then
     databasename=${array[1]}
+  elif [ ${array[0]} == "tomcatDebugListeningPort" ]; then
+    tomcatDebugListeningPort=${array[1]}
   fi 
 done < $settingFilename
 #======================================================================================================
@@ -67,6 +70,7 @@ sed -i -e 's#/usr/lib/jvm/default-java#'$newJavaHome'#g' $modJK_workerPropertyFi
 # server xml ------------------------------------------------------------------------------------------
 serverXml="/var/lib/tomcat7/conf/server.xml"
 sed -i '97i\    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />' $serverXml
+/usr/share/tomcat7/bin/catalina.sh run
 #------------------------------------------------------------------------------------------------------
 
 # symbolic link ---------------------------------------------------------------------------------------
@@ -79,6 +83,13 @@ ln -s /var/lib/tomcat7/shared /usr/share/tomcat7/shared
 
 chmod -R 777 /usr/share/tomcat7/conf
 #------------------------------------------------------------------------------------------------------
+
+
+# debug env setting -----------------------------------------------------------------------------------
+bashrcFile="/etc/bash.bashrc"
+sed -i '$ a\export JAVA_OPTS="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address='$tomcatDebugListeningPort',server=y,suspend=n"' $bashrcFile
+#------------------------------------------------------------------------------------------------------
+
 #======================================================================================================
 
 
