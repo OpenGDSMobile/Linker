@@ -84,7 +84,6 @@ ln -s /var/lib/tomcat7/shared /usr/share/tomcat7/shared
 chmod -R 777 /usr/share/tomcat7/conf
 #------------------------------------------------------------------------------------------------------
 
-
 # debug env setting -----------------------------------------------------------------------------------
 bashrcFile="/etc/bash.bashrc"
 sed -i '$ a\export JAVA_OPTS="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address='$tomcatDebugListeningPort',server=y,suspend=n"' $bashrcFile

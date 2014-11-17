@@ -1,5 +1,12 @@
 #!/bin/bash
 
+
+# --------------------------------------------- #
+# b_LIBI.sh ----------------------------------- #
+# b_LIBraries Installation.sh ----------------- #
+# --------------------------------------------- #
+
+
 #========================== Database(PostgreSQL + PostGIS) Installation ===============================
 apt-get update && apt-get install -y postgresql-9.3 \
                                      postgresql-9.3-postgis-2.1 \

@@ -1,10 +1,17 @@
 #!/bin/bash
 
+# --------------------------------------------- #
+# c_TGAC.sh ----------------------------------- #
+# c_Tomcat GeoServer Apache Configuration.sh -- #
+# --------------------------------------------- #
+
+
 #### init setup    ====================================================================================
 settingFilename="../setting"
 username=""
 password=""
 databasename=""
+tomcatDebugListeningPort=""
 
 while read line
 do
@@ -16,6 +23,8 @@ do
     password=${array[1]}
   elif [ ${array[0]} == "database" ]; then
     databasename=${array[1]}
+  elif [ ${array[0]} == "tomcatDebugListeningPort" ]; then
+    tomcatDebugListeningPort=${array[1]}
   fi 
 done < $settingFilename
 #======================================================================================================
@@ -72,6 +81,11 @@ ln -s /var/lib/tomcat7/server /usr/share/tomcat7/server
 ln -s /var/lib/tomcat7/shared /usr/share/tomcat7/shared
 
 chmod -R 777 /usr/share/tomcat7/conf
+#------------------------------------------------------------------------------------------------------
+
+# debug env setting -----------------------------------------------------------------------------------
+bashrcFile="/etc/bash.bashrc"
+sed -i '$ a\export JAVA_OPTS="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address='$tomcatDebugListeningPort',server=y,suspend=n"' $bashrcFile
 #------------------------------------------------------------------------------------------------------
 
 #======================================================================================================
