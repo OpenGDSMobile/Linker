@@ -88,7 +88,6 @@ chmod -R 777 /usr/share/tomcat7/conf
 bashrcFile="/etc/bash.bashrc"
 sed -i '$ a\export JAVA_OPTS="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address='$tomcatDebugListeningPort',server=y,suspend=n"' $bashrcFile
 #------------------------------------------------------------------------------------------------------
-
 #======================================================================================================
 
 
@@ -111,9 +110,9 @@ service apache2 restart # test : http://server_ip_address/geoserver
 #======================================================================================================
 
 
-#### GeoServer User Configure ========================================================================= 
-
-
+#### GeoServer JSONP Setting ========================================================================== 
+geoserverWebXmlFile="/var/lib/tomcat7/webapps/geoserver/WEB-INF/web.xml"
+sed -i -e '45d;50d' $geoserverWebXmlFile
 #======================================================================================================
 
 

@@ -70,6 +70,7 @@ sed -i -e 's#/usr/lib/jvm/default-java#'$newJavaHome'#g' $modJK_workerPropertyFi
 # server xml ------------------------------------------------------------------------------------------
 serverXml="/var/lib/tomcat7/conf/server.xml"
 sed -i '97i\    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />' $serverXml
+/usr/share/tomcat7/bin/catalina.sh run
 #------------------------------------------------------------------------------------------------------
 
 # symbolic link ---------------------------------------------------------------------------------------
@@ -87,7 +88,6 @@ chmod -R 777 /usr/share/tomcat7/conf
 bashrcFile="/etc/bash.bashrc"
 sed -i '$ a\export JAVA_OPTS="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address='$tomcatDebugListeningPort',server=y,suspend=n"' $bashrcFile
 #------------------------------------------------------------------------------------------------------
-
 #======================================================================================================
 
 
@@ -110,9 +110,8 @@ service apache2 restart # test : http://server_ip_address/geoserver
 #======================================================================================================
 
 
-#### GeoServer User Configure ========================================================================= 
-
-
+#### GeoServer JSONP Setting ========================================================================== 
+geoserverWebXmlFile="/var/lib/tomcat7/webapps/geoserver/WEB-INF/web.xml"
+sed -i -e '45d;50d' $geoserverWebXmlFile
 #======================================================================================================
-
 
