@@ -24,7 +24,7 @@ vi ./Linker-master/setting
 ...
 
 
-ubuntu1x.04 (x ==> 2, 4)
+ubuntu1x.04 (x == 2, 4)
 ----------
 
 (root) or (sudo user)
