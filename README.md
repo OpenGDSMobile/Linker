@@ -1,4 +1,4 @@
-##### PODS: Server Basic Environment Installation for Using the Public Open Data
+##### Linker: Server Basic Environment Installation for Using the Public Open Data
 -------------------------
 
 
@@ -30,7 +30,15 @@ ubuntu1x.04 (x ==> 2, 4)
 (root) or (sudo user)
 
       cd ./Linker-master/ubuntu1x.04
-      ./a_KERU.sh ----> Kernel Update and Reboot
-      ./b_LIBI.sh ----> Libraries Installation
-      ./c_TGAC.sh ----> Tomcat, GeoServer, Apache Web Server Configuration
-      ./d_EGFS.sh ----> E-Government Framework Setting
+      
+      ## Kernel Update and Reboot
+      ./a_KERU.sh 
+      
+      ## Libraries Installation
+      ./b_LIBI.sh 
+      
+      ## Tomcat, GeoServer, Apache Web Server Configuration
+      ./c_TGAC.sh 
+      
+      ## E-Government Framework Setting
+      ./d_EGFS.sh
