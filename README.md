@@ -1,32 +1,44 @@
-##### PODS: Server Basic Environment Installation for Using the Public Open Data
+##### Linker: Server Basic Environment Installation for Using the Public Open Data
 -------------------------
 
 
-Downloading
+download and uncompress
 ----------
 
-the recommended course of action is to clone a copy of the repository:
+donwload:
 
-      git clone git@github.com:motobyus/PODS.git .
+      wget https://github.com/OpenGDSMobile/Linker/archive/master.zip
+
+uncompress:
+
+      apt-get install -y unzip || unzip master.zip
 
 
+setting
+----------
 
-Using
+vi ./Linker-master/setting
+
+      tomcat7 user name example     ---> user:admin    
+      tomcat7 user password example ---> passwd:temp321
+...
+
+
+ubuntu1x.04 (x == 2, 4)
 ----------
 
 (root) or (sudo user)
 
-cd ......../ubuntu12.04
-
-./a_kernelUpgrade.sh
-
-(reboot)
-
-./b_libInstall.sh
-...
-...
-...
-
-
-
-
+      cd ./Linker-master/ubuntu1x.04
+      
+      ## Kernel Update and Reboot
+      ./a_KERU.sh 
+      
+      ## Libraries Installation
+      ./b_LIBI.sh 
+      
+      ## Tomcat, GeoServer, Apache Web Server Configuration
+      ./c_TGAC.sh 
+      
+      ## E-Government Framework Setting
+      ./d_EGFS.sh
