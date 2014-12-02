@@ -1,4 +1,4 @@
-##### Linker: Server Basic Environment Installation for Using the Public Open Data
+##### Linker: Basic Environment Installation Scripts of OpenGDS Mobile Application Server
 -------------------------
 
 
