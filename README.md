@@ -11,7 +11,7 @@ donwload:
 
 uncompress:
 
-      apt-get install -y unzip || unzip master.zip
+      apt-get install -y unzip && unzip master.zip
 
 
 setting
