@@ -6,16 +6,19 @@
 # b_LIBraries Installation.sh ----------------- #
 # --------------------------------------------- #
 
-
 #========================== Database(PostgreSQL + PostGIS) Installation ===============================
-apt-get update && apt-get install -y postgresql-9.3 \
-                                     postgresql-9.3-postgis-2.1 \
-                                     postgresql-9.3-postgis-2.1-scripts \
-                                     postgresql-9.3-postgis-scripts \
-                                     postgresql-client-9.3 \
+echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main">>/etc/apt/sources.list.d/pgdg.list
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+apt-get update && apt-get install -y postgresql-9.4 \
+                                     postgresql-9.4-postgis-2.1 \
+                                     postgresql-9.4-postgis-2.1-scripts \
+                                     postgresql-9.4-postgis-scripts \
+                                     postgresql-client-9.4 \
                                      postgresql-client-common \
                                      postgresql-common \
-                                     postgresql-contrib-9.3
+                                     postgresql-contrib-9.4 \
+                                     postgresql-server-dev-9.4
 #======================================================================================================
 
 

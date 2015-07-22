@@ -93,7 +93,7 @@ sed -i '$ a\export JAVA_OPTS="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,ad
 
 #### GeoServer setup    ===============================================================================
 mkdir -p ./downloads/geoserver
-wget http://sourceforge.net/projects/geoserver/files/GeoServer/2.7.0/geoserver-2.7.0-war.zip/download \
+wget http://sourceforge.net/projects/geoserver/files/GeoServer/2.7.1.1/geoserver-2.7.1.1-war.zip/download \
      -O ./downloads/geoserver.zip
 unzip ./downloads/geoserver.zip -d ./downloads/geoserver
 cp ./downloads/geoserver/geoserver.war /var/lib/tomcat7/webapps/geoserver.war
