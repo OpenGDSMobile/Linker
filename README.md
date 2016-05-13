@@ -42,3 +42,7 @@ ubuntu1x.04 (x == 2, 4)
       
       ## E-Government Framework Setting
       ./d_EGFS.sh
+
+CentOS 7
+----------
+Please read ./CentOS7/README.md
