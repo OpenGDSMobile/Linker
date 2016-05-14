@@ -13,7 +13,10 @@ su -c "cp tomcatUser /etc/sudoers.d/"
 
 ###Zsh install ###
 sudo yum update -y
-sudo yum install zsh git wget maven ant ant-junit unzip -y
+sudo yum install zsh git wget maven ant ant-junit unzip firewalld -y
+sudo systemctl unmask firewalld
+sudo systemctl enable firewalld
+sudo systemctl start firewalld
 wget --no-check-certificate http://install.ohmyz.sh -O - | sh
 sed -i 's/robbyrussell/dieter/g' ~/.zshrc
 echo "Please after su login, show New shell [/bin/bash]:   wrtie --> /bin/zsh"

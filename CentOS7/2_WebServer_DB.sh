@@ -2,8 +2,7 @@
 
 
 postgresPW='postgres'
-
-
+location='/home/centos/Linker/CentOS7/'
 
 ###PostgreSQL 9.5.2 Isntall & Setting###
 sudo yum install epel-release -y
@@ -47,11 +46,11 @@ cd /opt/tomcat-connectors-1.2.41-src/native
 make
 libtool --finish /usr/lib64/httpd/modules
 sudo make install
-sudo cp mod_jk.conf /etc/httpd/conf.d/
+sudo cp $location'mod_jk.conf' /etc/httpd/conf.d/
 sudo mkdir -p /var/run/mod_jk
 sudo chown apache:apache /var/run/mod_jk
-sudo cp workers.properties /etc/httpd/conf/
-sudo cp tomcatVirtualHost.conf  /etc/httpd/conf.d/
+sudo cp $location'workers.properties' /etc/httpd/conf/
+sudo cp $location'tomcatVirtualHost.conf' /etc/httpd/conf.d/
 sudo semanage port -a -t http_port_t -p tcp 8010
 
 
