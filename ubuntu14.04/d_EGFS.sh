@@ -1,59 +1,21 @@
 #!/bin/bash
 
-# -------------------------------------- #
-# d_EGFS.sh ---------------------------- #
-# d_E-Government Framework Setting.sh -- #
-# -------------------------------------- #
+echo "Input Manager ID: "
+read Manager_ID
+echo "Input Manager Password: "
+read Manager_Passwd
 
+# eGovRepository Setting==================================================
+wget http://175.114.128.46/publist/HDD1/public/mvnrepository_3.5.zip
+mkdir ./eGovRepository3_5
+unzip ./mvnrepository_3.5.zip -d ./eGovRepository3_5
+mv ./eGovRepository3_5/mvnrepository_3.5/* ./eGovRepository3_5
+rm -rf ./eGovRepository3_5/mvnrepository_3.5
+cp ./settings.xml ./eGovRepository3_5/
 
-#### init setup    ====================================================================================
-settingFilename="../setting"
-egovFrameworkLocation="" 
+sed -i "s/\/home\/intruder\//\/home\/$USER\//g" ./eGovRepository3_5/settings.xml
+sed -i "s/intruder/$Manager_ID/g" ./eGovRepository3_5/settings.xml
+sed -i "s/tomcat7/$Manager_Passwd/g" ./eGovRepository3_5/settings.xml
 
-while read line
-do
-  IFS=': ' read -a array <<< $line
-
-  if [ ${array[0]} == "eGovFrameworkLocation" ]; then
-    egovFrameworkLocation=${array[1]}
-    echo $egovFrameworkLocation 
-  fi 
-done < $settingFilename
-#======================================================================================================
-
-
-#### e-government Framework Donwload ================================================================== 
-
-# e-gov download --------------------------------------------------------------------------------------
-mkdir -p $egovFrameworkLocation
-mkdir -p ./downloads/egovframe
-
-wget http://175.114.128.46/publist/HDD1/public/mvnrepository_3.0.zip \
-     -O ./downloads/egovframe/mvnrepository_3.0.zip
-unzip ./downloads/egovframe/mvnrepository_3.0.zip -d $egovFrameworkLocation
-#------------------------------------------------------------------------------------------------------
-
-
-# e-gov maven setting ---------------------------------------------------------------------------------
-cp ../v_egovMavenSettingXml/settings.xml $egovFrameworkLocation
-
-egovMavenSettingXml="settings.xml"
-egovMavenSettingXmlFile=$egovFrameworkLocation$egovMavenSettingXml
-
-sed -i -e 's#egovMavenRepositoryDirectory#'$egovFrameworkLocation'#g' $egovMavenSettingXmlFile
-#------------------------------------------------------------------------------------------------------
-#======================================================================================================
-
-
-#### OpenGDS Mobile Application Server Setup ========================================================== 
-mkdir -p ./downloads/OpenGDSMAS
-
-wget https://github.com/OpenGDSMobile/ApplicationServer/archive/1.0.zip \
-     -O ./downloads/OpenGDSMAS.zip
-unzip ./downloads/OpenGDSMAS.zip -d ./downloads/OpenGDSMAS
-
-cp ./downloads/OpenGDSMAS/ApplicationServer-1.0/war/OpenGDSMobileApplicationServer1.0.war \
-   /var/lib/tomcat7/webapps/OpenGDSMobileApplicationServer.war
-
-service tomcat7 restart  # deply OpenGDSMobileApplicationServer
-#======================================================================================================
+mv ./eGovRepository3_5 /home/$USER/
+rm ./mvnrepository_3.5.zip

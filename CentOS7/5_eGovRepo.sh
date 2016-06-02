@@ -7,7 +7,7 @@ echo "Input user ID: $managerID"
 managerPW=${2:?"Requires an argumnet: manager PW"}
 echo "Input manager PW: $managerPW"
 
-location='/home/centos/Linker/CentOS7/'
+location=$(pwd)
 
 
 ###eGovRepository Setting###

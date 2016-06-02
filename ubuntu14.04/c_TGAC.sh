@@ -1,117 +1,48 @@
 #!/bin/bash
 
-# --------------------------------------------- #
-# c_TGAC.sh ----------------------------------- #
-# c_Tomcat GeoServer Apache Configuration.sh -- #
-# --------------------------------------------- #
+# ApplicationServer and DataServer ServiceRegisteration   =======================================================
 
+sudo cp DataServer8 /etc/init.d/DataServer8
+sudo chmod 755 /etc/init.d/DataServer8
+sudo ln -s /etc/init.d/DataServer8 /etc/rc1.d/K99DataServer8
+sudo ln -s /etc/init.d/DataServer8 /etc/rc2.d/S99DataServer8
+service DataServer8 start
 
-#### init setup    ====================================================================================
-settingFilename="../setting"
-username=""
-password=""
-databasename=""
-tomcatDebugListeningPort=""
+sudo cp ApplicationServer8 /etc/init.d/ApplicationServer8
+sudo chmod 755 /etc/init.d/ApplicationServer8
+sudo ln -s /etc/init.d/ApplicationServer8 /etc/rc1.d/K99ApplicationServer8
+sudo ln -s /etc/init.d/ApplicationServer8 /etc/rc2.d/S99ApplicationServer8
+service ApplicationServer8 start
 
-while read line
-do
-  IFS=': ' read -a array <<< $line
+# mod_jk Setting ===============================================================================================
+sudo mv /etc/libapache2-mod-jk/workers.properties /etc/libapache2-mod-jk/workers.properties.back
+sudo cp workers.properties /etc/libapache2-mod-jk/workers.properties
+default_conf_file="/etc/apache2/sites-enabled/000-default.conf"
+sudo sed -i '/CustomLog/a\\t\tJKMount /geoserver/*    dataserver \
+\t\tJKMount /geoserver      dataserver \
+\t\tJKMount /jenkins/*    applicationserver \
+\t\tJKMount /jenkins      applicationserver \
+\t\tJKMount /ApplicationServer/*      applicationserver \
+\t\tJKMount /ApplicationServer	  applicationserver \
+' $default_conf_file
 
-  if [ ${array[0]} == "user" ]; then
-    username=${array[1]}
-  elif [ ${array[0]} == "passwd" ]; then
-    password=${array[1]}
-  elif [ ${array[0]} == "database" ]; then
-    databasename=${array[1]}
-  elif [ ${array[0]} == "tomcatDebugListeningPort" ]; then
-    tomcatDebugListeningPort=${array[1]}
-  fi 
-done < $settingFilename
-#======================================================================================================
+# geoserver setup ===============================================================================================
+mkdir geoserver
+wget https://sourceforge.net/projects/geoserver/files/GeoServer/2.7.6/geoserver-2.7.6-war.zip -O ./geoserver/geoserver.zip
+unzip ./geoserver/geoserver.zip -d ./geoserver/
+cp ./geoserver/geoserver.war /opt/DataServer/webapps/
+rm -r ./geoserver
 
-
-#### PostgreSQL setup    ==============================================================================
-
-
-#======================================================================================================
-
-
-#### tomcat7 setup    =================================================================================
-# user ------------------------------------------------------------------------------------------------
-tomcat7_userControlFile="/var/lib/tomcat7/conf/tomcat-users.xml"
-userInfo="<user username=\"$username\" password=\"$password\" roles=\"admin,manager,manager-gui\"/>"
-
-sed -i '19i\  <role rolename="manager"/>' $tomcat7_userControlFile
-sed -i '20i\  <role rolename="admin"/>' $tomcat7_userControlFile
-sed -i '21i\  <role rolename="manager-gui"/>' $tomcat7_userControlFile
-sed -i "22i\  $userInfo" $tomcat7_userControlFile
-#------------------------------------------------------------------------------------------------------
-
-# JK module -------------------------------------------------------------------------------------------
-modJK_workerPropertyFile="/etc/libapache2-mod-jk/workers.properties"
-sed -i -e 's/tomcat6/tomcat7/g' $modJK_workerPropertyFile
-
-oldJavaHome="/usr/lib/jvm/default-java"
-newJavaHome=""
-
-MACHINE_TYPE=`uname -m`
-if [ ${MACHINE_TYPE} == 'x86_64' ]
-then
-  echo "64bit"
-  newJavaHome="/usr/lib/jvm/java-7-openjdk-amd64/"
-else
-  echo "32bit"
-  newJavaHome="/usr/lib/jvm/java-7-openjdk-i386/"
-fi
-
-sed -i -e 's#/usr/lib/jvm/default-java#'$newJavaHome'#g' $modJK_workerPropertyFile
-#------------------------------------------------------------------------------------------------------
-
-# server xml ------------------------------------------------------------------------------------------
-serverXml="/var/lib/tomcat7/conf/server.xml"
-sed -i '97i\    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />' $serverXml
-/usr/share/tomcat7/bin/catalina.sh run
-#------------------------------------------------------------------------------------------------------
-
-# symbolic link ---------------------------------------------------------------------------------------
-ln -s /var/lib/tomcat7/conf /usr/share/tomcat7/conf
-ln -s /etc/tomcat7/policy.d/03catalina.policy /usr/share/tomcat7/conf/catalina.policy
-ln -s /var/log/tomcat7 /usr/share/tomcat7/log
-ln -s /var/lib/tomcat7/common /usr/share/tomcat7/common
-ln -s /var/lib/tomcat7/server /usr/share/tomcat7/server
-ln -s /var/lib/tomcat7/shared /usr/share/tomcat7/shared
-
-chmod -R 777 /usr/share/tomcat7/conf
-#------------------------------------------------------------------------------------------------------
-
-# debug env setting -----------------------------------------------------------------------------------
-bashrcFile="/etc/bash.bashrc"
-sed -i '$ a\export JAVA_OPTS="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address='$tomcatDebugListeningPort',server=y,suspend=n"' $bashrcFile
-#------------------------------------------------------------------------------------------------------
-#======================================================================================================
-
-
-#### GeoServer setup    ===============================================================================
-mkdir -p ./downloads/geoserver
-wget http://sourceforge.net/projects/geoserver/files/GeoServer/2.7.1.1/geoserver-2.7.1.1-war.zip/download \
-     -O ./downloads/geoserver.zip
-unzip ./downloads/geoserver.zip -d ./downloads/geoserver
-cp ./downloads/geoserver/geoserver.war /var/lib/tomcat7/webapps/geoserver.war
-
-service tomcat7 restart  # deply geoserver
-#======================================================================================================
-
-
-#### Apache + GeoServer =============================================================================== 
-apacheSettingFile="/etc/apache2/sites-available/000-default.conf"
-sed -i '22i\        JKMount /geoserver/* ajp13_worker' $apacheSettingFile
-
-service apache2 restart # test : http://server_ip_address/geoserver
-#======================================================================================================
-
-
-#### GeoServer JSONP Setting ========================================================================== 
-geoserverWebXmlFile="/var/lib/tomcat7/webapps/geoserver/WEB-INF/web.xml"
+geoserverWebXmlFile="/opt/DataServer/webapps/geoserver/WEB-INF/web.xml"
+while [ : ];do
+  if test -e $geoserverWebXmlFile
+    then break
+  fi
+  echo "wait geoserver start..."
+  sleep 2;
+done
 sed -i -e '45d;50d' $geoserverWebXmlFile
-#======================================================================================================
 
+# Jenkins setup ==================================================================================================
+wget http://ftp.yz.yamagata-u.ac.jp/pub/misc/jenkins/war-stable/1.651.1/jenkins.war
+mv jenkins.war /opt/ApplicationServer/webapps/
