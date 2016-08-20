@@ -1,5 +1,0 @@
-user:admin
-passwd:temp321
-database:PODV
-eGovFrameworkLocation:/opt/egov/maven/
-tomcatDebugListeningPort:8000
