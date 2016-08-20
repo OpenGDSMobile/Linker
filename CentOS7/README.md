@@ -1,48 +1,27 @@
-##### Linker: Basic Environment Installation Scripts of OpenGDS Mobile Application Server
+##### CentOS Linker Manual
 -------------------------
 
-
-download and uncompress
+Manual
 ----------
 
-donwload:
+$cd ./Linker-1.2/CentOS7
+step by step (1~5)
 
-      wget https://github.com/OpenGDSMobile/Linker/archive/master.zip
+	## Update & sudo setting (require root password)
+	$1_presets.sh {user id}
 
-uncompress:
+	## Apache web server(includ mod_jk) & postgreSQL install
+	$2_WebServer_DB.sh
 
-      apt-get install -y unzip && unzip master.zip
+	## ApplicationServer container install (Tomcat 8)
+	## Input values are user about tomcat manager
+	$3_ApplicationServer.sh {tomcat user id} {tomcat user password}
 
+	## DataServer container install (Tomcat 8)
+	## Input values are user about tomcat manager
+	$./4_DataServer.sh {tomcat user id} {tomcat user password}
 
-setting
-----------
+	## Download & setting about eGovReposity files about maven 
+	## (require Application Server tomcat user information)
+	$./5_eGovRepo.sh {tomcat user id} {tomcat user password}
 
-vi ./Linker-master/setting
-
-      tomcat7 user name example     ---> user:admin    
-      tomcat7 user password example ---> passwd:temp321
-...
-
-
-ubuntu1x.04 (x == 2, 4)
-----------
-
-(root) or (sudo user)
-
-      cd ./Linker-master/ubuntu1x.04
-      
-      ## Kernel Update and Reboot
-      ./a_KERU.sh 
-      
-      ## Libraries Installation
-      ./b_LIBI.sh 
-      
-      ## Tomcat, GeoServer, Apache Web Server Configuration
-      ./c_TGAC.sh 
-      
-      ## E-Government Framework Setting
-      ./d_EGFS.sh
-
-CentOS 7
-----------
-Please read ./CentOS7/README.md

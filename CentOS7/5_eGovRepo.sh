@@ -7,7 +7,7 @@ echo "Input user ID: $managerID"
 managerPW=${2:?"Requires an argumnet: manager PW"}
 echo "Input manager PW: $managerPW"
 
-location='/home/centos/Linker/CentOS7/'
+location=$(pwd)
 
 
 ###eGovRepository Setting###
@@ -19,3 +19,4 @@ rm -rf ~/eGovRepository3_5/mvnrepository_3.5
 cp $location'settings.xml' ~/eGovRepository3_5/
 sed -i "s/intruder/$managerID/g" ~/eGovRepository3_5/settings.xml
 sed -i "s/tomcat7/$managerPW/g" ~/eGovRepository3_5/settings.xml
+rm ./mvnrepository_3.5.zip

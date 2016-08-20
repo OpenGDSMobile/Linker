@@ -52,7 +52,7 @@ mv ./geoserver/geoserver.war /opt/DataServer/webapps/
 rm -rf geoserver
 rm -rf geoserver-2.7.6-war.zip
 
-sudo service DataServer8 start
+service DataServer8 start
 
 geoserverWeb="/opt/DataServer/webapps/geoserver/WEB-INF/web.xml"
 while [ : ];do 
@@ -65,7 +65,4 @@ done
 
 sudo sed -i -e '45d;50d' $geoserverWeb
 
-chown -R $managerID.$managerID /opt/DataServer/
 
-
-sudo reboot

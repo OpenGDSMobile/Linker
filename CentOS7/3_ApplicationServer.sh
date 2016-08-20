@@ -57,5 +57,6 @@ sudo firewall-cmd --reload
 wget http://ftp.yz.yamagata-u.ac.jp/pub/misc/jenkins/war-stable/1.651.1/jenkins.war
 mv jenkins.war /opt/ApplicationServer/webapps/
 
-#service ApplicationServer8 start
-sudo reboot
+
+
+service ApplicationServer8 start
