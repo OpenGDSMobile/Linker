@@ -36,12 +36,12 @@ sudo firewall-cmd --permanent --zone=public --add-port=80/tcp
 sudo firewall-cmd --reload
 
 echo "-------------------------Mod JK Install & Setting------------"
-wget http://www.eu.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.41-src.tar.gz
-tar -xvf tomcat-connectors-1.2.41-src.tar.gz
-sudo mv tomcat-connectors-1.2.41-src /opt/
-rm tomcat-connectors-1.2.41-src.tar.gz
+wget http://www.eu.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.42-src.tar.gz
+tar -xvf tomcat-connectors-1.2.42-src.tar.gz
+sudo mv tomcat-connectors-1.2.42-src /opt/
+rm tomcat-connectors-1.2.42-src.tar.gz
 
-cd /opt/tomcat-connectors-1.2.41-src/native
+cd /opt/tomcat-connectors-1.2.42-src/native
 ./configure --with-apxs=/usr/bin/apxs
 make
 libtool --finish /usr/lib64/httpd/modules
