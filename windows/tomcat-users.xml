@@ -42,5 +42,5 @@
     <role rolename='admin'/>
     <role rolename='tomcatManager'/>
     <user username='admin' password='adminPass' roles='admin,admin-gui,admin-script,manager,manager-gui,manager-script'/>
-    <user username='romcatManager' password='tomcatPW' roles='admin,admin-gui,admin-script,manager,manager-gui,manager-script'/>
+    <user username='tomcatManager' password='tomcatPW' roles='admin,admin-gui,admin-script,manager,manager-gui,manager-script'/>
 </tomcat-users>

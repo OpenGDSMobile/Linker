@@ -10,10 +10,11 @@
 
 ####Install Method
 ----------------------------------------------------------------------
-  1. Powershell run (Administrator mode)
-  2. PS>  Set-ExecutionPolicy RemoteSigned
-  3. 1_WebServer_DB.ps1
-  4. 2_TomcatServer.ps1
+  1. vcredist_arm run (if you are not installed vc++ 2012 in windows)
+  2. Powershell run (Administrator mode)
+  3. PS>  Set-ExecutionPolicy RemoteSigned
+  4. 1_WebServer_DB.ps1
+  5. 2_TomcatServer.ps1
 
 ####Install path
 ----------------------------------------------------------------------

@@ -26,14 +26,14 @@ Expand-ZIPFile -File $zipLocation -destination "C:\Servers\"
 robocopy ".\" "C:\Servers\Apache24\conf" "httpd.conf"
 robocopy ".\" "C:\Servers\Apache24\conf" "mod_jk.conf"
 robocopy ".\" "C:\Servers\Apache24\conf" "workers.properties"
-wget http://mirror.apache-kr.org/tomcat/tomcat-connectors/jk/binaries/windows/tomcat-connectors-1.2.40-windows-x86_64-httpd-2.4.x.zip -OutFile ".\tmp\tomcat-connectors-1.2.40.zip"
+wget https://archive.apache.org/dist/tomcat/tomcat-connectors/jk/binaries/windows/tomcat-connectors-1.2.40-windows-x86_64-httpd-2.4.x.zip -OutFile ".\tmp\tomcat-connectors-1.2.40.zip"
 
 $zipLocation = $curLocation.path + "\tmp\tomcat-connectors-1.2.40.zip"
 $destLocation = $curLocation.path + "\tmp\tomcat-connectors-1.2.40"
 mkdir $destLocation
 Expand-ZIPFile -File $zipLocation -destination $destLocation
 
-#### mod jk ¼³Á¤... 
+#### mod jk... 
 cp $destLocation"\mod_jk.so" c:\Servers\Apache24\modules
 
 
