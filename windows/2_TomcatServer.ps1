@@ -15,10 +15,10 @@ $destLocation = $curLocation.path + "\tmp"
 #$pw = Read-host "Input Tomcat Manager PASSWORD:"
 
 
-$outputFolderName = "apache-tomcat-8.0.44"
+$outputFolderName = "apache-tomcat-8.0.45"
 $outputFolder = "tmp\" + $outputFolderName
 $outputZipFile = ".\tmp\" + $outputFolderName + ".zip" 
-wget http://mirror.apache-kr.org/tomcat/tomcat-8/v8.0.44/bin/apache-tomcat-8.0.44-windows-x64.zip -OutFile $outputZipFile
+wget http://mirror.apache-kr.org/tomcat/tomcat-8/v8.0.45/bin/apache-tomcat-8.0.45-windows-x64.zip -OutFile $outputZipFile
 $zipLocation = $curLocation.path + "\tmp\" + $outputFolderName +".zip"
 
 Expand-ZIPFile -File $zipLocation -destination $destLocation

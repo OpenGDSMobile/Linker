@@ -30,6 +30,7 @@ sudo apt-get update && sudo apt-get install -y postgresql-9.4 \
 
 #========================= PostgreSQL setup  =============================================================
 postgresPW='postgres'
+tomcatVersion='8.0.45'
 
 sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/9.4/main/postgresql.conf
 sudo sh -c 'echo "host    all             all             0.0.0.0/0               md5" >> /etc/postgresql/9.4/main/pg_hba.conf'
