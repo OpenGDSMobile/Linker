@@ -1,18 +1,17 @@
-##### Linker: Basic Environment Installation Scripts of OpenGDS Mobile Application Server
--------------------------
+# Linker
+
+  Semi-automatic OpenGDS Mobile Application Server environment configuration shell script.
 
 
-download and uncompress
-----------
 
-donwload:
+### Supported OS 
 
-      wget https://github.com/OpenGDSMobile/Linker/archive/master.zip
-
-uncompress:
-
-      apt-get install -y unzip && unzip master.zip
+- CentOS 7
+- Ubuntu 14.04 LTS
+- Windows 10
 
 
-setting (Reference subolders README.md)
-----------
+
+### How to install
+
+  Please, reference README.md inside each sub-folder

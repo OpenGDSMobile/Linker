@@ -1,27 +1,59 @@
-##### CentOS Linker Manual
+#### How to install OpenGDS Mobile Application Server configuration in CentOS 7
 -------------------------
 
-Manual
-----------
+Explanation
 
-$cd ./Linker-1.2/CentOS7
-step by step (1~5)
+- 1_persets.sh
 
-	## Update & sudo setting (require root password)
-	$1_presets.sh {user id}
+  > - Related libraries and softwares installation
+  > - List
+  >   1. Zsh 
+  >   2. Java
+  >   3. git 
+  >   4. wget
+  >   5. maven 
+  >   6. ant
+  >   7. firewalld
 
-	## Apache web server(includ mod_jk) & postgreSQL install
-	$2_WebServer_DB.sh
+- 2_webServer_DB.sh
 
-	## ApplicationServer container install (Tomcat 8)
-	## Input values are user about tomcat manager
-	$3_ApplicationServer.sh {tomcat user id} {tomcat user password}
+  > - Web Server installation and configuration 
+  > - List
+  >   1. Apache web server
+  >   2. postgresql
+  >   3. modJK
 
-	## DataServer container install (Tomcat 8)
-	## Input values are user about tomcat manager
-	$./4_DataServer.sh {tomcat user id} {tomcat user password}
+- 3_applicationServer.sh
 
-	## Download & setting about eGovReposity files about maven 
-	## (require Application Server tomcat user information)
-	$./5_eGovRepo.sh {tomcat user id} {tomcat user password}
+  > - Tomcat download & configuration for OpenGDSMobile Application Server 
+  > - Jenkins download & configuration
 
+- 4_dataServer.sh
+
+  > - Tomcat download & configuration for GeoServer(Data Server)
+  > - GeoServer download & configuration
+
+- 5_eGovRepo.sh
+
+  > - eGovframework Repository download & configuration in Korea.
+
+
+
+Usage
+
+ ```console
+$cd CentOS7
+
+$./1_presets.sh [USER_ID]	#Change [USER_ID] to your actual ID.
+
+$./2_webServer_DB.sh
+
+$./3_applicationServer.sh [TOMCAT_USER_ID] [TOMCAT_USER_PASSWORD]  #Change 
+[TOMCAT_USER_ID] and [TOMCAT_USER_PASSWORD] to use as a Tomcat manager in the future 
+about Application Server
+
+$./4_dataServer.sh [TOMCAT_USER_ID] [TOMCAT_USER_PASSWORD]  #Change [TOMCAT_USER_ID] and [TOMCAT_USER_PASSWORD] to use as a Tomcat manager in the future about Data Server
+
+$./5_eGovRepo.sh [TOMCAT_USER_ID] [TOMCAT_USER_PASSWORD] #Change [TOMCAT_USER_ID] and [TOMCAT_USER_PASSWORD] to your Application Server actual Infomation.
+  (option - If you need further development, do it)
+ ```
