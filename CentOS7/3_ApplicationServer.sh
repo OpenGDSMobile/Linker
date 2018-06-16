@@ -10,10 +10,10 @@ echo "Input manager PW: $managerPW"
 
 
 ###Application Server Install & Setting###
-wget http://mirror.navercorp.com/apache/tomcat/tomcat-8/v8.0.33/bin/apache-tomcat-8.0.39.tar.gz
-tar -xvf apache-tomcat-8.0.39.tar.gz
-mv apache-tomcat-8.0.39 ApplicationServer
-rm apache-tomcat-8.0.39.tar.gz
+wget http://mirror.navercorp.com/apache/tomcat/tomcat-8/v8.0.52/bin/apache-tomcat-8.0.52.tar.gz
+tar -xvf apache-tomcat-8.0.52.tar.gz
+mv apache-tomcat-8.0.52 ApplicationServer
+rm apache-tomcat-8.0.52.tar.gz
 
 str1="\t<role rolename='manager-gui'\/>\n"
 str2="\t<role rolename='manager-script'\/>\n"
@@ -54,8 +54,8 @@ sudo firewall-cmd --permanent --zone=public --add-port=8081/tcp
 sudo firewall-cmd --reload
 
 ###Jenkins Install ###
-wget http://ftp.yz.yamagata-u.ac.jp/pub/misc/jenkins/war-stable/1.651.1/jenkins.war
-mv jenkins.war /opt/ApplicationServer/webapps/
+#wget http://ftp.yz.yamagata-u.ac.jp/pub/misc/jenkins/war-stable/1.651.1/jenkins.war
+#mv jenkins.war /opt/ApplicationServer/webapps/
 
 
 
