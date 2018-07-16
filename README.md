@@ -7,7 +7,7 @@
 ### Supported OS 
 
 - CentOS 7
-- Ubuntu 14.04 LTS
+- Ubuntu 14.04/16.04 LTS
 - Windows 10
 
 
