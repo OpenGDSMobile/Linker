@@ -10,10 +10,10 @@ echo "Input manager PW: $managerPW"
 
 
 ###Application Server Install & Setting###
-wget http://mirror.navercorp.com/apache/tomcat/tomcat-8/v8.0.39/bin/apache-tomcat-8.0.39.tar.gz
-tar -xvf apache-tomcat-8.0.39.tar.gz
-mv apache-tomcat-8.0.39 DataServer
-rm apache-tomcat-8.0.39.tar.gz
+wget http://mirror.navercorp.com/apache/tomcat/tomcat-8/v8.0.52/bin/apache-tomcat-8.0.52.tar.gz
+tar -xvf apache-tomcat-8.0.52.tar.gz
+mv apache-tomcat-8.0.52 DataServer
+rm apache-tomcat-8.0.52.tar.gz
 str1="\t<role rolename='manager-gui'\/>\n"
 str2="\t<role rolename='manager-script'\/>\n"
 str3="\t<role rolename='manager'\/>\n"

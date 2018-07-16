@@ -4,11 +4,12 @@
 postgresPW='postgres'
 location=$(pwd)
 
-###PostgreSQL 9.5.2 Isntall & Setting###
+###PostgreSQL 9.5.3 Isntall & Setting###
 sudo yum install epel-release -y
-sudo rpm -Uvh http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm
+sudo rpm -Uvh http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-3.noarch.rpm
 sudo yum update -y
-sudo yum install postgresql95 postgresql95-server pgadmin3 postgresql95-devel postgis2_95 postgis2_95-devel.x86_64 postgis2_95-utils.x86_64 postgis2_95-client -y
+#sudo yum install postgresql95 postgresql95-server pgadmin3 postgresql95-devel postgis2_95 postgis2_95-devel.x86_64 postgis2_95-utils.x86_64 postgis2_95-client -y
+sudo yum install postgresql95 postgresql95-server -y
 
 echo "-------------------------PostgreSQL init----------------------"
 sudo /usr/pgsql-9.5/bin/postgresql95-setup initdb
@@ -28,7 +29,7 @@ echo "alter user postgres with password '$postgresPW'" | sudo su - postgres -c '
 
 
 ###Apache 2.4.2 Install & mod JK Setting###
-sudo yum install httpd libtool httpd-devel apr apr-devel apr-util apr-util-devel
+sudo yum install httpd libtool httpd-devel apr apr-devel apr-util apr-util-devel -y
 sudo systemctl enable httpd.service
 sudo service start httpd
 echo "-------------------------Firewall Open : tcp port 80---------"
@@ -54,4 +55,8 @@ sudo cp $location'/tomcatVirtualHost.conf' /etc/httpd/conf.d/
 sudo semanage port -a -t http_port_t -p tcp 8010
 
 
-
+echo "------------------------MongoDB Install & Setting -----------"
+sudo cp mongodb-org.repo /etc/yum.repos.d/
+sudo yum repolist
+sudo yum install mongodb-org -y
+sudo systemctl start mongod
